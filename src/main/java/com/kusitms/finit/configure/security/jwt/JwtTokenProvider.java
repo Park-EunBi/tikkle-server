@@ -1,6 +1,6 @@
 package com.kusitms.finit.configure.security.jwt;
 
-import com.kusitms.finit.account.entity.enumtypes.RoleType;
+import com.kusitms.finit.account.entity.RoleType;
 import com.kusitms.finit.configure.response.exception.CustomExceptionStatus;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -32,16 +32,20 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(email);
         claims.put("role", role);
         Date now = new Date();
+
+        Date validity = new Date(now.getTime() + tokenValidity);
+
         return Jwts.builder()
+                .setSubject(email)
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + tokenValidity))
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS512,secretKey)
                 .compact();
     }
 
     public String getUserName(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJwt(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
     public Authentication getAuthentication(String token) {
@@ -56,8 +60,11 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String jwtToken, HttpServletRequest req) {
         try{
-            if(jwtToken.isEmpty()) throw new JwtException("empty jwtToken");
-            Claims claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJwt(jwtToken).getBody();
+            if(jwtToken.isEmpty())
+                throw new JwtException("empty jwtToken");
+            Claims claimsJws = Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(jwtToken).getBody();
             return !claimsJws.getExpiration().before(new Date());
         } catch (JwtException e) {
             if(jwtToken.isEmpty()) {
