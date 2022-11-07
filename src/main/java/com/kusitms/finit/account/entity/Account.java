@@ -1,6 +1,6 @@
 package com.kusitms.finit.account.entity;
 
-import com.kusitms.finit.account.entity.enumtypes.RoleType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,9 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 public class Account {
 
     @Id
@@ -23,10 +25,27 @@ public class Account {
 
     private String email;
 
-    private String profileImage;
+    private String name;
+
+    private String ageRange;
+
+    //private String profileImage;
 
     private String password;
 
     private String oAuthId;
+
+
+    public static Account createAccount(String oAuthId, String email, String password, String nickname, String name, String ageRange) {
+        return Account.builder()
+                .oAuthId(oAuthId)
+                .email(email)
+                .name(name)
+                .ageRange(ageRange)
+                .password(password)
+                .nickname(nickname)
+                .role(RoleType.ROLE_USER)
+                .build();
+    }
 
 }
