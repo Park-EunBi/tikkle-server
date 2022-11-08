@@ -7,9 +7,11 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
-  profiles:
-    include:
-      - db
+
+  config:
+    import:
+      - classpath:/application-prod.yml
+
 
 logging:
   level:
