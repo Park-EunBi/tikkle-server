@@ -16,7 +16,7 @@ public class LoginResponse {
 
     public LoginResponse(String responseType, Account account, String accessToken){
         this.responseType = responseType;
-        this.id = account.getAccountId();
+        this.id = account.getId();
         this.role = account.getRole();
         this.accessToken = accessToken;
     }
