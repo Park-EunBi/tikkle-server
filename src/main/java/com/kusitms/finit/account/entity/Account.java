@@ -1,12 +1,16 @@
 package com.kusitms.finit.account.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kusitms.finit.account.dto.LoginRequest;
+import com.kusitms.finit.retrospect.Retrospect;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -44,6 +48,11 @@ public class Account {
     private int savingCost;
 
     private int fixedCost;
+
+    //연관관계
+    @JsonIgnore
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Retrospect> retrospectList = new ArrayList<>();
 
 
 
