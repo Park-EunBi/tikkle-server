@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class LoginResponse {
+    private String responseType;
     private Long id;
-    private String nickName;
     private RoleType role;
     private String accessToken;
 
-    public LoginResponse(Account account, String accessToken){
+    public LoginResponse(String responseType, Account account, String accessToken){
+        this.responseType = responseType;
         this.id = account.getAccountId();
-        this.nickName = account.getNickname();
         this.role = account.getRole();
         this.accessToken = accessToken;
     }
