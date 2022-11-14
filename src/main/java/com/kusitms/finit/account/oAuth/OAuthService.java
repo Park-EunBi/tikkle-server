@@ -6,6 +6,8 @@ import com.kusitms.finit.account.entity.Account;
 import com.kusitms.finit.configure.response.exception.CustomException;
 import com.kusitms.finit.configure.response.exception.CustomExceptionStatus;
 import com.kusitms.finit.configure.security.jwt.JwtTokenProvider;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
@@ -30,9 +32,15 @@ public class OAuthService {
 
 
     public LoginResponse loginWithToken(String token) {
-        Account account = validateSignInByToken(token);
-        String accessToken = jwtTokenProvider.createToken(account.getEmail(),account.getRole());
-        return new LoginResponse(account, accessToken);
+        CheckLogin checkLogin = validateSignInByToken(token);
+        Account account = checkLogin.getAccount();
+        if (checkLogin.registered) {
+            String accessToken = jwtTokenProvider.createToken(account.getEmail(), account.getRole());
+            return new LoginResponse("signIn", account, accessToken);
+        } else{
+            return new LoginResponse("signUp", account, null);
+        }
+
     }
 
     private KakaoUserInfo getUserAttributesByToken(String token){
@@ -64,26 +72,38 @@ public class OAuthService {
         return new KakaoUserInfo(id, nickname, email, ageRange);
     }
 
-    private Account validateSignInByToken(String token) {
+    private CheckLogin validateSignInByToken(String token) {
         //accessToken으로 userProfile정보 얻기
         KakaoUserInfo kakaoUserInfo = getUserAttributesByToken(token);
 
         String kakao_id = "kakao_" + kakaoUserInfo.getId();
 
         String email = kakaoUserInfo.getEmail();
-        String nickname = kakaoUserInfo.getNickname();
+        String kakao_nickname = kakaoUserInfo.getNickname();
         //String name = kakaoUserInfo.getName();
         String ageRange = kakaoUserInfo.getAgeRange();
 
         Account account = null;
+        boolean registerd;
         //중복회원 확인
         Optional<Account> byKakaoId = accountRepository.findByoAuthId(kakao_id);
-        if(byKakaoId.isPresent()) account = byKakaoId.get();
+        if(byKakaoId.isPresent()) {
+            account = byKakaoId.get();
+            registerd = true;
+        }
         else {
-            Account newAccount = Account.createAccount(kakao_id, email, passwordEncoder.encode(kakao_id), nickname, "name", ageRange);
+            Account newAccount = Account.createAccount(kakao_id, email, passwordEncoder.encode(kakao_id), kakao_nickname, ageRange);
             Account save = accountRepository.save(newAccount);
             account = save;
+            registerd = false;
         }
-        return account;
+        return new CheckLogin(registerd, account);
+    }
+
+    @Data
+    @AllArgsConstructor
+    private class CheckLogin {
+        boolean registered;
+        Account account;
     }
 }
