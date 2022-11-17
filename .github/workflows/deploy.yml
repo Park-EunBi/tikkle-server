@@ -21,16 +21,11 @@ jobs:
         run: chmod +x ./gradlew
         shell: bash
 
-      - name: Set Yaml
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: ./src/main/resources/application-prod.yml
-        env:
-          spring.datasource.url: ${{ secrets.DATABASE_URL }}
-          spring.datasource.username: ${{ secrets.DATABASE_ID }}
-          spring.datasource.password: ${{ secrets.RDS_PASSWORD }}
-          jwt.secret: ${{ secrets.SECRET_KEY }}
-
       - name: Build with Gradle
         run: ./gradlew build
         shell: bash
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_ID: ${{ secrets.DATABASE_ID }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}

@@ -9,14 +9,14 @@ spring:
       ddl-auto: update
 
   datasource:
-    url: jdbc:h2:mem:test
-    driver-class-name: org.h2.Driver
-    username: test
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://${DATABASE_URL}?serverTimezone=Asia/Seoul
+      username: ${DATABASE_ID}
+      password: ${DATABASE_PASSWORD}
 
   config:
     import:
-      - classpath:/application-prod.yml
+      #- classpath:/application-prod.yml
 
 
 logging:
@@ -26,3 +26,7 @@ logging:
         type:
           description:
             sql: trace
+
+
+jwt:
+  secret: ${SECRET_KEY}
