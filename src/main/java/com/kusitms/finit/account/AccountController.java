@@ -5,10 +5,7 @@ import com.kusitms.finit.account.dto.LoginResponse;
 import com.kusitms.finit.configure.response.DataResponse;
 import com.kusitms.finit.configure.response.ResponseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,5 +18,10 @@ public class AccountController {
     public DataResponse<LoginResponse> login(@PathVariable(value = "id") Long id, @RequestBody LoginRequest request) {
         LoginResponse loginResponse = accountService.setExtraInfo(id, request);
         return responseService.getDataResponse(loginResponse);
+    }
+
+    @GetMapping("/hello")
+    public String helloWorld() {
+        return "cicd test";
     }
 }
