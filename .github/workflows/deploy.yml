@@ -24,3 +24,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
         shell: bash
+        env:
+          SECRET: ${{ secrets.SECRET_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_ID: ${{ secrets.DATABASE_ID }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
