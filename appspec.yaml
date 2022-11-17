@@ -3,9 +3,9 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/drcloud-deploy
+    destination: /home/ubuntu/app
 permissions:
-  - object: /home/ubuntu/drcloud-deploy
+  - object: /
     owner: ubuntu
     group: ubuntu
     mode: 755
