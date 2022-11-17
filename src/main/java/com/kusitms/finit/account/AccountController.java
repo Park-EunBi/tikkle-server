@@ -23,5 +23,6 @@ public class AccountController {
     @GetMapping("/hello")
     public String helloWorld() {
         return "cicd test";
+
     }
 }
