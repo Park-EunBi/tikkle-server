@@ -2,6 +2,7 @@ package com.kusitms.finit.account;
 
 import com.kusitms.finit.account.dto.LoginRequest;
 import com.kusitms.finit.account.dto.LoginResponse;
+import com.kusitms.finit.configure.response.CommonResponse;
 import com.kusitms.finit.configure.response.DataResponse;
 import com.kusitms.finit.configure.response.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class AccountController {
     }
 
     @GetMapping("/hello")
-    public String helloWorld() {
-        return "cicd test";
+    public CommonResponse helloWorld() {
+        return responseService.getSuccessResponse();
 
     }
 }
