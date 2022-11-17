@@ -1,22 +1,24 @@
-#!/usr/bin/env bash
+#!/bin/bash
+BUILD_JAR=$(ls /home/ec2-user/kusitms/build/libs/*.jar)
+JAR_NAME=$(basename $BUILD_JAR)
+echo "> build 파일명: $JAR_NAME" >> /home/ec2-user/kusitms/deploy.log
 
-REPOSITORY=/home/ec2-user/kusitms
-cd $REPOSITORY
+echo "> build 파일 복사" >> /home/ec2-user/kusitms/deploy.log
+DEPLOY_PATH=/home/ec2-user/kusitms/
+cp $BUILD_JAR $DEPLOY_PATH
 
-APP_NAME=kusitms
-JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep 'SNAPSHOT.jar' | tail -n 1)
-JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
-
-CURRENT_PID=$(pgrep -f $APP_NAME)
+echo "> 현재 실행중인 애플리케이션 pid 확인" >> /home/ec2-user/kusitms/deploy.log
+CURRENT_PID=$(pgrep -f $JAR_NAME)
 
 if [ -z $CURRENT_PID ]
 then
-  echo "> 종료할것 없음."
+  echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다." >> /home/ec2-user/kusitms/deploy.log
 else
-  echo "> kill -9 $CURRENT_PID"
+  echo "> kill -15 $CURRENT_PID"
   kill -15 $CURRENT_PID
   sleep 5
 fi
 
-echo "> $JAR_PATH 배포"
-nohup java -jar $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
+DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
+echo "> DEPLOY_JAR 배포"    >> /home/ec2-user/kusitms/deploy.log
+sudo sh /home/ec2-user/kusitms/kusitms.sh
