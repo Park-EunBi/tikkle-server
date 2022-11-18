@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
 REPOSITORY=/home/ec2-user/kusitms26
-cd $REPOSITORY/tikkeul-server/
 
 echo "> Build 파일 복사"
 cp ./build/libs/*.jar $REPOSITORY/
-
 
 echo "> 현재 구동중인 애플리케이션 pid 확인"
 CURRENT_PID=$(pgrep -f finit)
