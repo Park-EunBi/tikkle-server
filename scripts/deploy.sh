@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-REPOSITORY=/home/ec2-user/kusitms
-cd $REPOSITORY
+REPOSITORY=/home/ec2-user/kusitms26
+cd $REPOSITORY/tikkeul-server/
 
-APP_NAME=tikkeul-server
-JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep 'SNAPSHOT.jar' | tail -n 1)
-JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
+echo "> Build 파일 복사"
+cp ./build/libs/*.jar $REPOSITORY/
 
-CURRENT_PID=$(pgrep -f $APP_NAME)
+
+echo "> 현재 구동중인 애플리케이션 pid 확인"
+CURRENT_PID=$(pgrep -f finit)
+echo "$CURRENT_PID"
 
 if [ -z $CURRENT_PID ]
 then
@@ -18,5 +20,8 @@ else
   sleep 5
 fi
 
-echo "> $JAR_PATH 배포"
-nohup java -jar $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
+echo "> 새 어플리케이션 배포"
+JAR_NAME=$(ls $REPOSITORY/ | grep 'finit' | tail -n 1)
+
+echo "> JAR Name: $JAR_NAME"
+nohup java -jar $REPOSITORY/$JAR_NAME &
