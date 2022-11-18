@@ -2,11 +2,11 @@ version: 0.0
 os: linux
 files:
   - source:  /
-    destination: /home/ec2-user/kusitms
+    destination: /home/ec2-user/kusitms26
     overwrite: yes
 
 permissions:
-  - object: /home/ec2-user/kusitms
+  - object: /home/ec2-user/kusitms26
     owner: ec2-user
     group: ec2-user
 
