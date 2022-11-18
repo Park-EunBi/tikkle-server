@@ -28,7 +28,7 @@ jobs:
         with:
           files: ./src/main/resources/application.yml
         env:
-          spring.datasource.url: ${{ secrets.DATABASE_URL }}
+          spring.datasource.url: jdbc:mysql://${{ secrets.DATABASE_URL }}?autoReconnect=true&serverTimezone=Asia/Seoul
           spring.datasource.username: ${{ secrets.DATABASE_ID }}
           spring.datasource.password: ${{ secrets.DATABASE_PASSWORD }}
           jwt.secret: ${{ secrets.SECRET_KEY }}
