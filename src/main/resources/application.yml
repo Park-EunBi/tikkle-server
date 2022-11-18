@@ -10,7 +10,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DATABASE_URL}?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://${DATABASE_URL}?autoReconnect=true&serverTimezone=Asia/Seoul
     username: ${DATABASE_ID}
     password: ${DATABASE_PASSWORD}
 
