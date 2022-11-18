@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY=/home/ec2-user/kusitms26
+cd $REPOSITORY
 
 echo "> Build 파일 복사"
 cp ./build/libs/*.jar $REPOSITORY/
