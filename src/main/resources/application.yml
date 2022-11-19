@@ -8,9 +8,15 @@ spring:
     hibernate:
       ddl-auto: update
 
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DATABASE_URL}?autoReconnect=true&serverTimezone=Asia/Seoul
+    username: ${DATABASE_ID}
+    password: ${DATABASE_PASSWORD}
+
   config:
     import:
-      - classpath:/application-prod.yml
+      #- classpath:/application-prod.yml
 
 
 logging:
@@ -20,3 +26,7 @@ logging:
         type:
           description:
             sql: trace
+
+
+jwt:
+  secret: ${SECRET_KEY}
