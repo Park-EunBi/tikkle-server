@@ -9,7 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+<<<<<<< HEAD
 import java.security.Principal;
+=======
+>>>>>>> bab950c (FEAT: challenge 확인 API 개발)
 
 @Getter
 @NoArgsConstructor
