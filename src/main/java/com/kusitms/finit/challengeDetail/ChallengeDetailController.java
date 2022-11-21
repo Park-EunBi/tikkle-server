@@ -1,12 +1,15 @@
 package com.kusitms.finit.challengeDetail;
 
 import com.kusitms.finit.challengeDetail.dto.ChallengeDetailDto;
+import com.kusitms.finit.challengeDetail.dto.ChallengeDetailRes;
 import com.kusitms.finit.configure.response.DataResponse;
 import com.kusitms.finit.configure.response.ResponseService;
 import com.kusitms.finit.configure.security.authentication.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,14 +27,15 @@ public class ChallengeDetailController {
         return responseService.getDataResponse(challengeDetailId);
     }
 
-    /*
+
     // 세부 챌린지 전체 조회 (최근 업로드 순)
-    @GetMapping("/challengeDetail/{challengeId}")
-    public void getChallengeDetailByLatest() {
-        challengeDetailService.getChallengeDetailByLatest();
+    @GetMapping("/challengeDetail/{challengeId}/latest")
+    public DataResponse<List<ChallengeDetailRes>> getChallengeDetailByLatest(@PathVariable(value = "challengeId") Long id) {
+        List<ChallengeDetailRes> list = challengeDetailService.getChallengeDetailByLatest(id);
+        return responseService.getDataResponse(list);
     }
 
-     */
+
 
     // 세부 챌린지 신청
    // @PostMapping("/challengeDetail/{challengeDetailId}")
