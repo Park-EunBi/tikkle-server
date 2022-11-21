@@ -1,7 +1,9 @@
 package com.kusitms.finit.certification;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kusitms.finit.account.entity.Account;
 import com.kusitms.finit.challengeDetail.ChallengeDetail;
+import com.kusitms.finit.comment.Comment;
 import com.kusitms.finit.retrospect.Retrospect;
 import com.kusitms.finit.retrospect.dto.RetrospectReq;
 import lombok.AllArgsConstructor;
@@ -12,7 +14,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -45,7 +49,11 @@ public class Certification {
     @JoinColumn(name = "challenge_detail_id")
     private ChallengeDetail challengeDetail;
 
-    //
+    @JsonIgnore
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
+
+
     public void setAccount(Account account) {
         this.account = account;
         account.getCertificationList().add(this);
