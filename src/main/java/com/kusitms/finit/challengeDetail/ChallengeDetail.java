@@ -1,7 +1,9 @@
 package com.kusitms.finit.challengeDetail;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kusitms.finit.account.entity.Account;
+import com.kusitms.finit.certification.Certification;
 import com.kusitms.finit.challenge.Challenge;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +12,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -39,10 +43,20 @@ public class ChallengeDetail {
     @JoinColumn(name = "challenge_id")
     private Challenge challenge;
 
-//    @ManyToOne (targetEntity = Challenge.class, fetch = FetchType.LAZY)
-////    @ManyToOne (fetch = FetchType.LAZY)
-//    @JoinColumn(name="challenge_id")
-//    private Long challengeId;
+    @JsonIgnore
+    @OneToMany(mappedBy = "challengeDetail", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Certification> certificationList = new ArrayList<>();
 
-//    public ChallengeDetail(Long)
+    public void setAccount(Account account) {
+        this.account = account;
+        account.getChallengeDetailList().add(this);
+    }
+
+    public void setChallenge(Challenge challenge) {
+        this.challenge = challenge;
+        challenge.getChallengeDetailList().add(this);
+    }
+
+    //생성 메서드
+
 }
