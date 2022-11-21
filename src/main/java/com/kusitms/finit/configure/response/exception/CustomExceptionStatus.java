@@ -21,7 +21,8 @@ public enum CustomExceptionStatus {
     RETROSPECT_NOT_FOUND(false, 2020, "회고를 찾을 수 없습니다."),
 
     //challenge
-    CHALLENGE_NOT_FOUND(false, 2030, "챌린지를 찾을 수 없습니다.");
+    CHALLENGE_NOT_FOUND(false, 2030, "챌린지를 찾을 수 없습니다."),
+    DETAIL_CHALLENGE_NOT_FOUND(false, 2031, "세부 챌린지를 찾을 수 없습니다.");
 
     private final boolean isSuccess;
     private final int code;

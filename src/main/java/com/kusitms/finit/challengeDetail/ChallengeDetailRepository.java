@@ -2,6 +2,7 @@ package com.kusitms.finit.challengeDetail;
 
 import com.kusitms.finit.challenge.dto.TodayChallengeRes;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,4 +20,9 @@ public interface ChallengeDetailRepository extends JpaRepository<ChallengeDetail
             "WHERE c.challenge_id = :id " +
             "ORDER BY c.create_date ASC", nativeQuery = true)
     List<ChallengeDetail> findByChallengeDetailByLatest(@Param(value = "id") Long id);
+
+    @Modifying
+    @Query(value = "UPDATE challenge_detail c " +
+            "SET c.participate = :num WHERE c.challenge_detail_id = :id", nativeQuery = true)
+    void updateParticipate(@Param(value = "num") int num, @Param(value = "id") Long id);
 }

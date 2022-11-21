@@ -12,7 +12,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
@@ -33,6 +32,8 @@ public class ChallengeDetail {
     private String target;
 
     private LocalDateTime createDate;
+
+    private int participate;
 
     // 연관
     @ManyToOne(fetch = FetchType.LAZY)
@@ -68,6 +69,7 @@ public class ChallengeDetail {
         challengeDetail.setTitle(dto.getTitle());
         challengeDetail.setIntro(dto.getIntro());
         challengeDetail.setTarget(dto.getTarget());
+        challengeDetail.setParticipate(0);
         challengeDetail.setAccount(account);
         challengeDetail.setChallenge(challenge);
         challengeDetail.setCreateDate(LocalDateTime.now());
