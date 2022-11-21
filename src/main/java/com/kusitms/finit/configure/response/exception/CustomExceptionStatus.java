@@ -18,7 +18,10 @@ public enum CustomExceptionStatus {
     ACCOUNT_NOT_FOUND(false, 2011, "사용자를 찾을 수 없습니다."),
 
     //retrospect
-    RETROSPECT_NOT_FOUND(false, 2020, "회고를 찾을 수 없습니다.");
+    RETROSPECT_NOT_FOUND(false, 2020, "회고를 찾을 수 없습니다."),
+
+    //challenge
+    CHALLENGE_NOT_FOUND(false, 2030, "챌린지를 찾을 수 없습니다.");
 
     private final boolean isSuccess;
     private final int code;
