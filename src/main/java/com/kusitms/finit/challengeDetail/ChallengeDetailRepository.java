@@ -18,11 +18,17 @@ public interface ChallengeDetailRepository extends JpaRepository<ChallengeDetail
 
     @Query(value = "SELECT * FROM challenge_detail c " +
             "WHERE c.challenge_id = :id " +
-            "ORDER BY c.create_date ASC", nativeQuery = true)
+            "ORDER BY c.create_date", nativeQuery = true)
     List<ChallengeDetail> findByChallengeDetailByLatest(@Param(value = "id") Long id);
+
+    @Query(value = "SELECT * FROM challenge_detail c " +
+            "WHERE c.challenge_id = :id " +
+            "ORDER BY c.participate DESC", nativeQuery = true)
+    List<ChallengeDetail> findByChallengeDetailByParticipate(@Param(value = "id") Long id);
 
     @Modifying
     @Query(value = "UPDATE challenge_detail c " +
             "SET c.participate = :num WHERE c.challenge_detail_id = :id", nativeQuery = true)
     void updateParticipate(@Param(value = "num") int num, @Param(value = "id") Long id);
+
 }

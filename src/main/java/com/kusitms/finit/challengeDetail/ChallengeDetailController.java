@@ -27,7 +27,6 @@ public class ChallengeDetailController {
         return responseService.getDataResponse(challengeDetailId);
     }
 
-
     // 세부 챌린지 전체 조회 (최근 업로드 순)
     @GetMapping("/challengeDetail/{challengeId}/latest")
     public DataResponse<List<ChallengeDetailRes>> getChallengeDetailByLatest(@PathVariable(value = "challengeId") Long id) {
@@ -35,10 +34,18 @@ public class ChallengeDetailController {
         return responseService.getDataResponse(list);
     }
 
+    // 세부 챌린지 전체 조회 (참여 많은 순)
+    @GetMapping("/challengeDetail/{challengeId}/participate")
+    public DataResponse<List<ChallengeDetailRes>> getChallengeDetailByParticipation(@PathVariable(value = "challengeId") Long id) {
+        List<ChallengeDetailRes> list = challengeDetailService.getChallengeDetailByParticipation(id);
+        return responseService.getDataResponse(list);
+    }
 
-
-    // 세부 챌린지 신청
-   // @PostMapping("/challengeDetail/{challengeDetailId}")
+    // 세부 챌린지 상세 조회
+    @GetMapping("challengeDetail/{challengeDetailId}")
+    public void getChallengeDetail(@PathVariable(value = "challengeId") Long id) {
+        challengeDetailService.getChallengeDetail(id);
+    }
 
     //참여 중인 세부 챌린지 조회
     @GetMapping("/challengeDetail")

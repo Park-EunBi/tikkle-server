@@ -47,6 +47,20 @@ public class ChallengeDetailService {
         return list.stream().map(ChallengeDetailRes::new).collect(Collectors.toList());
     }
 
+    // 세부 챌린지 전체 조회 (좋아요 많은 순)
+    public List<ChallengeDetailRes> getChallengeDetailByParticipation(Long id) {
+        List<ChallengeDetail> list = challengeDetailRepository.findByChallengeDetailByParticipate(id);
+        return list.stream().map(ChallengeDetailRes::new).collect(Collectors.toList());
+    }
+
+    // 세부 챌린지 상세 조회
+    public void getChallengeDetail(Long id) {
+        ChallengeDetail challengeDetail = challengeDetailRepository.findById(id)
+                .orElseThrow(() -> new CustomException(CustomExceptionStatus.DETAIL_CHALLENGE_NOT_FOUND));
+
+        challengeDetail.getParticipationList().size();
+    }
+
     // 참여 중인 세부 챌린지 조회
     public void getChallengeDetailByAccountId(CustomUserDetails customUserDetails) {
         Account account = accountRepository.findByEmail(customUserDetails.getEmail())
@@ -56,6 +70,4 @@ public class ChallengeDetailService {
 
 
     }
-
-
 }
