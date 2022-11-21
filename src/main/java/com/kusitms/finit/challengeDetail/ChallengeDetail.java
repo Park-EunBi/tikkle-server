@@ -3,6 +3,7 @@ package com.kusitms.finit.challengeDetail;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kusitms.finit.account.entity.Account;
+import com.kusitms.finit.certification.Certification;
 import com.kusitms.finit.challenge.Challenge;
 import com.kusitms.finit.challengeDetail.dto.ChallengeDetailDto;
 import com.kusitms.finit.participation.Participation;
@@ -41,6 +42,10 @@ public class ChallengeDetail {
     @JsonIgnore
     @OneToMany(mappedBy = "challengeDetail", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participation> participationList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "challengeDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Certification> certificationList = new ArrayList<>();
 
     //
     public void setAccount(Account account) {

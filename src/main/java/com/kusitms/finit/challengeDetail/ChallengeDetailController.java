@@ -34,7 +34,7 @@ public class ChallengeDetailController {
      */
 
     // 세부 챌린지 신청
-    @PostMapping("/challengeDetail/{challengeDetailId}")
+   // @PostMapping("/challengeDetail/{challengeDetailId}")
 
     //참여 중인 세부 챌린지 조회
     @GetMapping("/challengeDetail")
