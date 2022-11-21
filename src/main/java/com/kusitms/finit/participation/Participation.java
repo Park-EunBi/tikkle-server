@@ -29,4 +29,23 @@ public class Participation {
     @JoinColumn(name = "challenge_detail_id")
     private ChallengeDetail challengeDetail;
 
+    //
+    public void setAccount(Account account) {
+        this.account = account;
+        account.getParticipationList().add(this);
+    }
+
+    public void setChallengeDetail(ChallengeDetail challengeDetail) {
+        this.challengeDetail = challengeDetail;
+        challengeDetail.getParticipationList().add(this);
+    }
+
+    // 생성 메서드
+    public static Participation createParticipation(Account account, ChallengeDetail challengeDetail) {
+        Participation participation = new Participation();
+        participation.setAccount(account);
+        participation.setChallengeDetail(challengeDetail);
+        return participation;
+    }
+
 }

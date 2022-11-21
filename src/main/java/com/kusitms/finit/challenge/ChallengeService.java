@@ -2,7 +2,8 @@ package com.kusitms.finit.challenge;
 
 import com.kusitms.finit.account.AccountRepository;
 import com.kusitms.finit.account.entity.Account;
-import com.kusitms.finit.challenge.dto.ChallengeImgRes;
+import com.kusitms.finit.challenge.dto.ChallengeCertificationRes;
+import com.kusitms.finit.challenge.dto.ChallengeListRes;
 import com.kusitms.finit.challenge.dto.MyChallengeListRes;
 import com.kusitms.finit.challenge.dto.TodayChallengeRes;
 import com.kusitms.finit.challengeDetail.ChallengeDetailRepository;
@@ -12,8 +13,10 @@ import com.kusitms.finit.configure.security.authentication.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,6 +25,7 @@ public class ChallengeService {
     private final ChallengeDetailRepository challengeDetailRepository;
     private final AccountRepository accountRepository;
     private final ChallengeDao challengeDao;
+    private final ChallengeRepository challengeRepository;
 
     public List<TodayChallengeRes> getTodayChallengeByAccountId(CustomUserDetails customUserDetails) {
         Account account = accountRepository.findByEmail(customUserDetails.getEmail())
@@ -50,4 +54,16 @@ public class ChallengeService {
         myChallengeListResList.setChallengeImgResList(challengeDao.selectChallengeList(account.getId(), challenge_id));
         return myChallengeListResList;
     }
+
+    // 챌린지 조회
+    public List<ChallengeListRes> getDefaultChallengeList() {
+        List<Challenge> list = challengeRepository.findAll();
+        return list.stream().map(ChallengeListRes::new).collect(Collectors.toList());
+    }
+
+    //챌린지 인증
+    public void setCertification(CustomUserDetails customUserDetails, Long challengeId, ChallengeCertificationRes dto, MultipartFile file) {
+
+    }
+
 }

@@ -8,7 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -27,7 +28,7 @@ public class Certification {
 
     private String certificationImage;
 
-    private Date certificationDate;
+    private String createDate;
 
     // 연관
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,5 +38,17 @@ public class Certification {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challenge_detail_id")
     private ChallengeDetail challengeDetail;
+
+    public void setCreateDate(LocalDateTime localDateTime) {
+        String year = String.valueOf(localDateTime.getYear());
+        String month = String.valueOf(localDateTime.getMonthValue());
+        String day = String.valueOf(localDateTime.getDayOfMonth());
+        if(day.length() == 1) {
+            String prefix = "0";
+            day = prefix + day;
+        }
+        DayOfWeek dayOfWeek = localDateTime.getDayOfWeek();
+        this.createDate = year + ". " + month + ". " + day + ".";
+    }
 
 }
