@@ -22,7 +22,11 @@ public enum CustomExceptionStatus {
 
     //challenge
     CHALLENGE_NOT_FOUND(false, 2030, "챌린지를 찾을 수 없습니다."),
-    DETAIL_CHALLENGE_NOT_FOUND(false, 2031, "세부 챌린지를 찾을 수 없습니다.");
+    DETAIL_CHALLENGE_NOT_FOUND(false, 2031, "세부 챌린지를 찾을 수 없습니다."),
+
+    //s3
+    S3_UPLOAD_FAIL(false, 2040, "이미지 업로드에 실패했습니다."),
+    FILE_WRONG_TYPE(false, 2041,  "잘못된 형식의 파일입니다.");
 
     private final boolean isSuccess;
     private final int code;
