@@ -7,6 +7,7 @@ import com.kusitms.finit.challengeDetail.ChallengeDetailRepository;
 import com.kusitms.finit.configure.response.exception.CustomException;
 import com.kusitms.finit.configure.response.exception.CustomExceptionStatus;
 import com.kusitms.finit.configure.security.authentication.CustomUserDetails;
+import com.kusitms.finit.participation.dto.ParticipationRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,7 @@ public class ParticipationService {
         participationRepository.save(participation);
     }
 
-    public List<String> getChallengeDetailByAccountId(CustomUserDetails customUserDetails) {
+    public List<ParticipationRes> getChallengeDetailByAccountId(CustomUserDetails customUserDetails) {
         Account account = accountRepository.findByEmail(customUserDetails.getEmail())
                 .orElseThrow(() -> new CustomException(CustomExceptionStatus.ACCOUNT_NOT_FOUND));
         return participationRepository.findTitleByAccountIdAndCertificate(account.getId());

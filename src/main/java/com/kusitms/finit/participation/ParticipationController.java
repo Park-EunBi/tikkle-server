@@ -4,6 +4,7 @@ import com.kusitms.finit.configure.response.CommonResponse;
 import com.kusitms.finit.configure.response.DataResponse;
 import com.kusitms.finit.configure.response.ResponseService;
 import com.kusitms.finit.configure.security.authentication.CustomUserDetails;
+import com.kusitms.finit.participation.dto.ParticipationRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +31,8 @@ public class ParticipationController {
 
     // 참여중인 세부 챌린지 조회
     @GetMapping("/participate/challengeDetail")
-    public DataResponse<List<String>> getChallengeDetailByAccountId(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        List<String> list = participationService.getChallengeDetailByAccountId(customUserDetails);
+    public DataResponse<List<ParticipationRes>> getChallengeDetailByAccountId(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        List<ParticipationRes> list = participationService.getChallengeDetailByAccountId(customUserDetails);
         return responseService.getDataResponse(list);
     }
 }
