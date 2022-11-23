@@ -49,9 +49,4 @@ public class ChallengeDetailController {
         return responseService.getDataResponse(dto);
     }
 
-    //참여 중인 세부 챌린지 조회
-    @GetMapping("/challengeDetail")
-    public void getChallengeDetailByAccountId(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        challengeDetailService.getChallengeDetailByAccountId(customUserDetails);
-    }
 }

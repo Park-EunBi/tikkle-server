@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -34,5 +36,11 @@ public class ParticipationService {
 
         Participation participation = Participation.createParticipation(account, challengeDetail);
         participationRepository.save(participation);
+    }
+
+    public List<String> getChallengeDetailByAccountId(CustomUserDetails customUserDetails) {
+        Account account = accountRepository.findByEmail(customUserDetails.getEmail())
+                .orElseThrow(() -> new CustomException(CustomExceptionStatus.ACCOUNT_NOT_FOUND));
+        return participationRepository.findTitleByAccountIdAndCertificate(account.getId());
     }
 }

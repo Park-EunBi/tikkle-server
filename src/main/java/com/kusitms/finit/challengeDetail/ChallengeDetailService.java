@@ -64,13 +64,4 @@ public class ChallengeDetailService {
         return new ChallengeDetailResultRes(challengeDetail, feed);
     }
 
-    // 참여 중인 세부 챌린지 조회
-    public void getChallengeDetailByAccountId(CustomUserDetails customUserDetails) {
-        Account account = accountRepository.findByEmail(customUserDetails.getEmail())
-                .orElseThrow(() -> new CustomException(CustomExceptionStatus.ACCOUNT_NOT_FOUND));
-
-        List<String> list = participationRepository.findByAccountId(account.getId());
-
-
-    }
 }
