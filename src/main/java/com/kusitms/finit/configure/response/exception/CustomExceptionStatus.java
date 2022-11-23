@@ -26,7 +26,10 @@ public enum CustomExceptionStatus {
 
     //s3
     S3_UPLOAD_FAIL(false, 2040, "이미지 업로드에 실패했습니다."),
-    FILE_WRONG_TYPE(false, 2041,  "잘못된 형식의 파일입니다.");
+    FILE_WRONG_TYPE(false, 2041,  "잘못된 형식의 파일입니다."),
+
+    //participation
+    PARTICIPATION_NOT_FOUND(false, 2050, "참여하지 않았습니다.");
 
     private final boolean isSuccess;
     private final int code;

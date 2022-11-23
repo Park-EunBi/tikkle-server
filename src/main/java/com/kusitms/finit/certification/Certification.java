@@ -2,23 +2,18 @@ package com.kusitms.finit.certification;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kusitms.finit.account.entity.Account;
+import com.kusitms.finit.certification.dto.CertificationReq;
 import com.kusitms.finit.challengeDetail.ChallengeDetail;
 import com.kusitms.finit.comment.Comment;
-import com.kusitms.finit.retrospect.Retrospect;
-import com.kusitms.finit.retrospect.dto.RetrospectReq;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -38,7 +33,6 @@ public class Certification {
     private int likes;
 
     private String createDate;
-
 
     // 연관
     @ManyToOne(fetch = FetchType.LAZY)
@@ -77,12 +71,15 @@ public class Certification {
     }
 
     //생성메서드
-    public static Certification createCertification(Account account ) {//, RetrospectReq dto) {
+    public static Certification createCertification(Account account, ChallengeDetail challengeDetail, CertificationReq dto, String url){
         Certification certification = new Certification();
         certification.setAccount(account);
+        certification.setChallengeDetail(challengeDetail);
+        certification.setTitle(dto.getTitle());
+        certification.setContent(dto.getContent());
+        certification.setCertificationImage(url);
+        certification.setLikes(0);
         certification.setCreateDate(LocalDateTime.now());
-        //certification.setChallengeDetail();
-
         return certification;
     }
 }

@@ -2,6 +2,7 @@ package com.kusitms.finit.participation;
 
 import com.kusitms.finit.participation.dto.ParticipationRes;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -14,5 +15,9 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
             "WHERE p.challenge_detail_id = c.challenge_detail_id " +
             "AND p.account_id = :id " +
             "AND p.certificate = false", nativeQuery = true)
-    List<ParticipationRes> findTitleByAccountIdAndCertificate(@Param(value = "id") Long id);
+    List<ParticipationRes> findTitleByAccountIdAndCertificate(@Param("id") Long id);
+
+    @Modifying
+    @Query(value = "UPDATE participation p SET p.certificate = false WHERE p.participation_id = :id", nativeQuery = true)
+    void updateCertificate(@Param("id") Long id);
 }
