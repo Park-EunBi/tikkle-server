@@ -2,6 +2,7 @@ package com.kusitms.finit.challengeDetail;
 
 import com.kusitms.finit.challengeDetail.dto.ChallengeDetailDto;
 import com.kusitms.finit.challengeDetail.dto.ChallengeDetailRes;
+import com.kusitms.finit.challengeDetail.dto.ChallengeDetailResultRes;
 import com.kusitms.finit.configure.response.DataResponse;
 import com.kusitms.finit.configure.response.ResponseService;
 import com.kusitms.finit.configure.security.authentication.CustomUserDetails;
@@ -42,9 +43,10 @@ public class ChallengeDetailController {
     }
 
     // 세부 챌린지 상세 조회
-    @GetMapping("challengeDetail/{challengeDetailId}")
-    public void getChallengeDetail(@PathVariable(value = "challengeId") Long id) {
-        challengeDetailService.getChallengeDetail(id);
+    @GetMapping("/challengeDetail/{challengeDetailId}/view")
+    public DataResponse<ChallengeDetailResultRes> getChallengeDetail(@PathVariable(value = "challengeDetailId") Long id) {
+        ChallengeDetailResultRes dto = challengeDetailService.getChallengeDetail(id);
+        return responseService.getDataResponse(dto);
     }
 
     //참여 중인 세부 챌린지 조회

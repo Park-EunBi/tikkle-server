@@ -2,10 +2,12 @@ package com.kusitms.finit.challengeDetail;
 
 import com.kusitms.finit.account.AccountRepository;
 import com.kusitms.finit.account.entity.Account;
+import com.kusitms.finit.certification.CertificationRepository;
 import com.kusitms.finit.challenge.Challenge;
 import com.kusitms.finit.challenge.ChallengeRepository;
 import com.kusitms.finit.challengeDetail.dto.ChallengeDetailDto;
 import com.kusitms.finit.challengeDetail.dto.ChallengeDetailRes;
+import com.kusitms.finit.challengeDetail.dto.ChallengeDetailResultRes;
 import com.kusitms.finit.configure.response.exception.CustomException;
 import com.kusitms.finit.configure.response.exception.CustomExceptionStatus;
 import com.kusitms.finit.configure.security.authentication.CustomUserDetails;
@@ -26,6 +28,7 @@ public class ChallengeDetailService {
     private final AccountRepository accountRepository;
     private final ParticipationRepository participationRepository;
     private final ChallengeRepository challengeRepository;
+    private final CertificationRepository certificationRepository;
 
     // 챌린지 개설
     @Transactional
@@ -54,11 +57,11 @@ public class ChallengeDetailService {
     }
 
     // 세부 챌린지 상세 조회
-    public void getChallengeDetail(Long id) {
+    public ChallengeDetailResultRes getChallengeDetail(Long id) {
         ChallengeDetail challengeDetail = challengeDetailRepository.findById(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionStatus.DETAIL_CHALLENGE_NOT_FOUND));
-
-        challengeDetail.getParticipationList().size();
+        int feed = certificationRepository.findByChallengeDetailId(id).size();
+        return new ChallengeDetailResultRes(challengeDetail, feed);
     }
 
     // 참여 중인 세부 챌린지 조회
