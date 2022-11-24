@@ -22,10 +22,12 @@ public class HeartService {
 
         if (heartDao.checkHeart(account.getId(), certification_id) == 1) {
             heartDao.deleteHeart(account.getId(), certification_id);
+            heartDao.subHeartNum(certification_id);
             return 0;
         }
         else {
             heartDao.insertHeart(account.getId(), certification_id);
+            heartDao.addHeartNum(certification_id);
             return 1;
         }
     }

@@ -13,4 +13,6 @@ public class GetFeedCertification {
     private String certification_image;
     private String title;
     private String content;
+    private int comment_num;
+    private int heart_num;
 }

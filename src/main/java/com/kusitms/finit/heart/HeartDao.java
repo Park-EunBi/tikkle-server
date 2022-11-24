@@ -12,7 +12,7 @@ public class HeartDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public void setDataSource(DataSource dataSource) {
+    public void  setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -39,5 +39,17 @@ public class HeartDao {
         Object[] insertHeartParams = new Object[]{id, certification_id};
 
         this.jdbcTemplate.update(insertHeartQuery, insertHeartParams);
+    }
+
+    public void addHeartNum(Long certification_id) {
+        String addHeartNumQuery = "update certification set heart_num = heart_num + 1 where certification_id = ?;";
+        long addHeartNumParam = certification_id;
+        this.jdbcTemplate.update(addHeartNumQuery, addHeartNumParam);
+    }
+
+    public void subHeartNum(Long certification_id) {
+        String subHeartNumQuery = "update certification set heart_num = heart_num - 1 where certification_id = ?;";
+        long subHeartNumParam = certification_id;
+        this.jdbcTemplate.update(subHeartNumQuery, subHeartNumParam);
     }
 }
