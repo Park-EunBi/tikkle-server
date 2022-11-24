@@ -19,7 +19,7 @@ spring:
 
   config:
     import:
-      - classpath:/application-prod.yml
+    #  - classpath:/application-prod.yml
 
 cloud:
   aws:
