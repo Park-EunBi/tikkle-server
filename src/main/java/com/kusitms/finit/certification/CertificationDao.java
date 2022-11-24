@@ -76,4 +76,26 @@ public class CertificationDao {
                         rs.getString("content")),
                 selectFeedCertificationByLikeParam);
     }
+
+    public List<GetFeedCertification> selectFeedSearchCertification(Long challenge_id, String search_word) {
+        String selectFeedSearchCertificationQuery = "select certification_image, certification.title, content\n" +
+                "from certification, challenge_detail, challenge\n" +
+                "where certification.challenge_detail_id = challenge_detail.challenge_detail_id\n" +
+                "and challenge_detail.challenge_id = challenge.challenge_id\n" +
+                "and challenge.challenge_id = ?\n" +
+                "and (certification.title like ? or content like ?)\n" +
+                "order by likes desc;";
+
+        String search_word_replace= search_word.replace("\"", "");
+        search_word_replace = "%" + search_word_replace +"%";
+
+        Object[] selectFeedSearchCertificationParam = new Object[]{challenge_id, search_word_replace, search_word_replace};
+
+        return this.jdbcTemplate.query(selectFeedSearchCertificationQuery,
+                (rs, rowNum) -> new GetFeedCertification(
+                        rs.getString("certification_image"),
+                        rs.getString("title"),
+                        rs.getString("content")),
+                selectFeedSearchCertificationParam);
+    }
 }

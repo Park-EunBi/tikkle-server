@@ -42,4 +42,10 @@ public class CertificationController {
         List<GetFeedCertification> res = certificationService.getFeedCertificationByLike(challenge_id);
         return responseService.getDataResponse(res);
     }
+
+    @GetMapping("/certification/search/{challenge_id}/{search_word}")
+    public DataResponse<List<GetFeedCertification>> getFeedCertificationByLike(@PathVariable("challenge_id") Long challenge_id, @PathVariable("search_word") String search_word) {
+        List<GetFeedCertification> res = certificationService.getFeedSearchCertification(challenge_id, search_word);
+        return responseService.getDataResponse(res);
+    }
 }

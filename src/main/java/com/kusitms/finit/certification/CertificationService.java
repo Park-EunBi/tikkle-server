@@ -75,4 +75,9 @@ public class CertificationService {
         List<GetFeedCertification> getFeedCertification = certificationDao.selectFeedCertificationByLike(challenge_id);
         return getFeedCertification;
     }
+
+    public List<GetFeedCertification> getFeedSearchCertification(Long challenge_id, String search_word) {
+        List<GetFeedCertification> getFeedCertification = certificationDao.selectFeedSearchCertification(challenge_id, search_word);
+        return getFeedCertification;
+    }
 }
