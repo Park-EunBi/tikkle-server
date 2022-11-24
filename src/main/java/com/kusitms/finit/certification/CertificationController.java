@@ -2,6 +2,7 @@ package com.kusitms.finit.certification;
 
 import com.kusitms.finit.certification.dto.CertificationReq;
 import com.kusitms.finit.certification.dto.GetCertificationRes;
+import com.kusitms.finit.certification.dto.GetFeedCertification;
 import com.kusitms.finit.configure.response.CommonResponse;
 import com.kusitms.finit.configure.response.DataResponse;
 import com.kusitms.finit.configure.response.ResponseService;
@@ -28,5 +29,23 @@ public class CertificationController {
     public CommonResponse postCertificationByParticipationIdAndAccountId(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("participation_id") Long id, @RequestPart("dto")CertificationReq dto, @RequestPart(value = "images", required = false) List<MultipartFile> file) {
         certificationService.postCertificationByParticipationIdAndAccountId(customUserDetails, id, dto, file);
         return responseService.getSuccessResponse();
+    }
+
+    @GetMapping("/certification/feed/{challenge_id}")
+    public DataResponse<List<GetFeedCertification>> getFeedCertificationById(@PathVariable("challenge_id") Long challenge_id) {
+        List<GetFeedCertification> res = certificationService.getFeedCertificationById(challenge_id);
+        return responseService.getDataResponse(res);
+    }
+
+    @GetMapping("/certification/like/{challenge_id}")
+    public DataResponse<List<GetFeedCertification>> getFeedCertificationByLike(@PathVariable("challenge_id") Long challenge_id) {
+        List<GetFeedCertification> res = certificationService.getFeedCertificationByLike(challenge_id);
+        return responseService.getDataResponse(res);
+    }
+
+    @GetMapping("/certification/search/{challenge_id}/{search_word}")
+    public DataResponse<List<GetFeedCertification>> getFeedCertificationByLike(@PathVariable("challenge_id") Long challenge_id, @PathVariable("search_word") String search_word) {
+        List<GetFeedCertification> res = certificationService.getFeedSearchCertification(challenge_id, search_word);
+        return responseService.getDataResponse(res);
     }
 }

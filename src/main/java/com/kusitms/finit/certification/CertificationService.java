@@ -4,6 +4,7 @@ import com.kusitms.finit.account.AccountRepository;
 import com.kusitms.finit.account.entity.Account;
 import com.kusitms.finit.certification.dto.CertificationReq;
 import com.kusitms.finit.certification.dto.GetCertificationRes;
+import com.kusitms.finit.certification.dto.GetFeedCertification;
 import com.kusitms.finit.challengeDetail.ChallengeDetail;
 import com.kusitms.finit.challengeDetail.ChallengeDetailRepository;
 import com.kusitms.finit.configure.response.exception.CustomException;
@@ -62,5 +63,21 @@ public class CertificationService {
         }
         certificationRepository.save(certification);
         participationRepository.updateCertificate(participation.getId());
+    }
+
+    public List<GetFeedCertification> getFeedCertificationById(Long challenge_id) {
+        List<GetFeedCertification> getFeedCertification = certificationDao.selectFeedCertification(challenge_id);
+        return getFeedCertification;
+
+    }
+
+    public List<GetFeedCertification> getFeedCertificationByLike(Long challenge_id) {
+        List<GetFeedCertification> getFeedCertification = certificationDao.selectFeedCertificationByLike(challenge_id);
+        return getFeedCertification;
+    }
+
+    public List<GetFeedCertification> getFeedSearchCertification(Long challenge_id, String search_word) {
+        List<GetFeedCertification> getFeedCertification = certificationDao.selectFeedSearchCertification(challenge_id, search_word);
+        return getFeedCertification;
     }
 }
