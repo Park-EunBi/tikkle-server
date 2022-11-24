@@ -1,6 +1,8 @@
 package com.kusitms.finit.certification;
 
 import com.kusitms.finit.certification.dto.GetCertificationRes;
+import com.kusitms.finit.certification.dto.GetFeedCertification;
+import com.kusitms.finit.challenge.dto.ChallengeImgRes;
 import com.kusitms.finit.challenge.dto.TodayChallengeRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,4 +43,37 @@ public class CertificationDao {
     }
 
 
+    public List<GetFeedCertification> selectFeedCertification(Long challenge_id) {
+
+        String selectFeedCertificationQuery = "select certification_image, certification.title, content\n" +
+                "from certification, challenge_detail, challenge\n" +
+                "where certification.challenge_detail_id = challenge_detail.challenge_detail_id\n" +
+                "and challenge_detail.challenge_id = challenge.challenge_id\n" +
+                "and challenge.challenge_id = ?";
+        long selectCertificationParam = challenge_id;
+
+        return this.jdbcTemplate.query(selectFeedCertificationQuery,
+                (rs, rowNum) -> new GetFeedCertification(
+                        rs.getString("certification_image"),
+                        rs.getString("title"),
+                        rs.getString("content")),
+                selectCertificationParam);
+    }
+
+    public List<GetFeedCertification> selectFeedCertificationByLike(Long challenge_id) {
+        String selectFeedCertificationByLikeQuery = "select certification_image, certification.title, content\n" +
+                "from certification, challenge_detail, challenge\n" +
+                "where certification.challenge_detail_id = challenge_detail.challenge_detail_id\n" +
+                "and challenge_detail.challenge_id = challenge.challenge_id\n" +
+                "and challenge.challenge_id = ?\n" +
+                "order by likes desc;";
+        long selectFeedCertificationByLikeParam = challenge_id;
+
+        return this.jdbcTemplate.query(selectFeedCertificationByLikeQuery,
+                (rs, rowNum) -> new GetFeedCertification(
+                        rs.getString("certification_image"),
+                        rs.getString("title"),
+                        rs.getString("content")),
+                selectFeedCertificationByLikeParam);
+    }
 }
