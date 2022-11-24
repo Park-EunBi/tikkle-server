@@ -2,14 +2,11 @@ package com.kusitms.finit.participation;
 
 import com.kusitms.finit.account.entity.Account;
 import com.kusitms.finit.challengeDetail.ChallengeDetail;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -19,6 +16,8 @@ public class Participation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="participation_id")
     private Long id;
+
+    private boolean certificate;
 
     // 연관
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,6 +44,7 @@ public class Participation {
         Participation participation = new Participation();
         participation.setAccount(account);
         participation.setChallengeDetail(challengeDetail);
+        participation.setCertificate(false);
         return participation;
     }
 

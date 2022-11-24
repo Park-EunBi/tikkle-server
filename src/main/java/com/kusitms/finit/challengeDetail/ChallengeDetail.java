@@ -10,6 +10,7 @@ import com.kusitms.finit.participation.Participation;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,10 @@ public class ChallengeDetail {
     private String intro;
 
     private String target;
+
+    private LocalDateTime createDate;
+
+    private int participate;
 
     // 연관
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,8 +69,10 @@ public class ChallengeDetail {
         challengeDetail.setTitle(dto.getTitle());
         challengeDetail.setIntro(dto.getIntro());
         challengeDetail.setTarget(dto.getTarget());
+        challengeDetail.setParticipate(0);
         challengeDetail.setAccount(account);
         challengeDetail.setChallenge(challenge);
+        challengeDetail.setCreateDate(LocalDateTime.now());
         return challengeDetail;
     }
 
