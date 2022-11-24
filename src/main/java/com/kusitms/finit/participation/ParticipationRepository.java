@@ -18,6 +18,6 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
     List<ParticipationRes> findTitleByAccountIdAndCertificate(@Param("id") Long id);
 
     @Modifying
-    @Query(value = "UPDATE participation p SET p.certificate = false WHERE p.participation_id = :id", nativeQuery = true)
+    @Query(value = "UPDATE participation p SET p.certificate = true WHERE p.participation_id = :id", nativeQuery = true)
     void updateCertificate(@Param("id") Long id);
 }
