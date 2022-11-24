@@ -2,6 +2,10 @@ package com.kusitms.finit.account.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kusitms.finit.account.dto.LoginRequest;
+import com.kusitms.finit.certification.Certification;
+import com.kusitms.finit.challengeDetail.ChallengeDetail;
+import com.kusitms.finit.comment.Comment;
+import com.kusitms.finit.participation.Participation;
 import com.kusitms.finit.retrospect.Retrospect;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,7 +59,21 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Retrospect> retrospectList = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Certification> certificationList = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ChallengeDetail> challengeDetailList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Participation> participationList = new ArrayList<>();
 
     public static Account createAccount(String oAuthId, String email, String password, String kakaoNickName, String ageRange) {
         return Account.builder()
