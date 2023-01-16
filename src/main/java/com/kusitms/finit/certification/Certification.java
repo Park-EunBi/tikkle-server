@@ -34,6 +34,10 @@ public class Certification {
 
     private String createDate;
 
+    private int commentNum;
+
+    private int heartNum;
+
     // 연관
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")

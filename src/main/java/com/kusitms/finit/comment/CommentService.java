@@ -50,5 +50,6 @@ public class CommentService {
         String createDate = year + "년 " + month + "월 " + day + "일";
 
         commentDao.insertComment(postCommentReq.getContent(), createDate, account.getId(), postCommentReq.getCertification_id());
+        commentDao.addCommentNum(postCommentReq.getCertification_id());
     }
 }

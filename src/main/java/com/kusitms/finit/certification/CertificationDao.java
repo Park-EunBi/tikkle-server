@@ -45,7 +45,7 @@ public class CertificationDao {
 
     public List<GetFeedCertification> selectFeedCertification(Long challenge_id) {
 
-        String selectFeedCertificationQuery = "select certification_image, certification.title, content\n" +
+        String selectFeedCertificationQuery = "select certification_image, certification.title, content, comment_num, heart_num\n" +
                 "from certification, challenge_detail, challenge\n" +
                 "where certification.challenge_detail_id = challenge_detail.challenge_detail_id\n" +
                 "and challenge_detail.challenge_id = challenge.challenge_id\n" +
@@ -56,12 +56,14 @@ public class CertificationDao {
                 (rs, rowNum) -> new GetFeedCertification(
                         rs.getString("certification_image"),
                         rs.getString("title"),
-                        rs.getString("content")),
+                        rs.getString("content"),
+                        rs.getInt("comment_num"),
+                        rs.getInt("heart_num")),
                 selectCertificationParam);
     }
 
     public List<GetFeedCertification> selectFeedCertificationByLike(Long challenge_id) {
-        String selectFeedCertificationByLikeQuery = "select certification_image, certification.title, content\n" +
+        String selectFeedCertificationByLikeQuery = "select certification_image, certification.title, content, comment_num, heart_num\n" +
                 "from certification, challenge_detail, challenge\n" +
                 "where certification.challenge_detail_id = challenge_detail.challenge_detail_id\n" +
                 "and challenge_detail.challenge_id = challenge.challenge_id\n" +
@@ -73,12 +75,14 @@ public class CertificationDao {
                 (rs, rowNum) -> new GetFeedCertification(
                         rs.getString("certification_image"),
                         rs.getString("title"),
-                        rs.getString("content")),
+                        rs.getString("content"),
+                        rs.getInt("comment_num"),
+                        rs.getInt("heart_num")),
                 selectFeedCertificationByLikeParam);
     }
 
     public List<GetFeedCertification> selectFeedSearchCertification(Long challenge_id, String search_word) {
-        String selectFeedSearchCertificationQuery = "select certification_image, certification.title, content\n" +
+        String selectFeedSearchCertificationQuery = "select certification_image, certification.title, content, comment_num, heart_num\n" +
                 "from certification, challenge_detail, challenge\n" +
                 "where certification.challenge_detail_id = challenge_detail.challenge_detail_id\n" +
                 "and challenge_detail.challenge_id = challenge.challenge_id\n" +
@@ -95,7 +99,9 @@ public class CertificationDao {
                 (rs, rowNum) -> new GetFeedCertification(
                         rs.getString("certification_image"),
                         rs.getString("title"),
-                        rs.getString("content")),
+                        rs.getString("content"),
+                        rs.getInt("comment_num"),
+                        rs.getInt("heart_num")),
                 selectFeedSearchCertificationParam);
     }
 }

@@ -41,5 +41,10 @@ public class CommentDao {
         this.jdbcTemplate.update(insertCommentQuery, insertCommentParams);
     }
 
+    public void addCommentNum(long certification_id) {
+        String addCommentNumQuery = "update certification set comment_num = comment_num+ 1 where certification_id = ?;";
+        long addCommentNumParam = certification_id;
+        this.jdbcTemplate.update(addCommentNumQuery, addCommentNumParam);
+    }
 }
 
