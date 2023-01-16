@@ -21,9 +21,5 @@ public class AccountController {
         return responseService.getDataResponse(loginResponse);
     }
 
-    @GetMapping("/hello")
-    public CommonResponse helloWorld() {
-        return responseService.getSuccessResponse();
 
-    }
 }
