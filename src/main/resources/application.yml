@@ -13,7 +13,7 @@ spring:
       maxRequestSize: 10MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DATABASE_URL}:3306/rds?autoReconnect=true&serverTimezone=Asia/Seoul
+    url: ${DATABASE_URL}
     username: ${DATABASE_ID}
     password: ${DATABASE_PASSWORD}
 
