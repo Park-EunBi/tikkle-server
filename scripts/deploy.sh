@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REPOSITORY=/home/ec2-user/kusitms26
+REPOSITORY=/home/ubuntu/tikkle
 cd $REPOSITORY
 
 echo "> Build 파일 복사"
