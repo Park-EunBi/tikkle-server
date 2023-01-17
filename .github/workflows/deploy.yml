@@ -34,7 +34,7 @@ jobs:
         run: chmod +x ./gradlew
         shell: bash
 
-      - name: make application-prod.yml
+      - name: Make application-prod.yml
         if: contains(github.ref, 'main') # branch가 main 일 때
         run: |
           cd ./src/main/resources

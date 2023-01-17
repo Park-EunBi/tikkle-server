@@ -21,5 +21,9 @@ public class AccountController {
         return responseService.getDataResponse(loginResponse);
     }
 
+    @GetMapping("/test")
+    public String test() {
+        return "서버 실행 성공";
+    }
 
 }
