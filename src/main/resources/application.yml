@@ -13,26 +13,13 @@ spring:
       maxRequestSize: 10MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DATABASE_URL}
-    username: ${DATABASE_ID}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:mysql://localhost:3306/finit?serverTimezone=Asia/Seoul
+    username: root
+    password: foqlt97!!
 
   config:
     import:
-#      - classpath:/application-prod.yml
-
-cloud:
-  aws:
-    credentials:
-      accessKey: ${S3_ACCESS_KEY}
-      secretKey: ${S3_SECRET_KEY}
-    s3:
-      bucket: ${S3_BUCKET}
-    region:
-      static: ap-northeast-2
-    stack:
-      auto: false
-
+      - classpath:/application-prod.yml
 
 logging:
   level:
@@ -45,7 +32,3 @@ logging:
       amazonaws:
         util:
           EC2MetadataUtils: error
-
-
-jwt:
-  secret: ${SECRET_KEY}
