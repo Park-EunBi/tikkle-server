@@ -16,6 +16,8 @@ spring:
     url: jdbc:mysql://localhost:3306/finit?serverTimezone=Asia/Seoul
     username: root
     password: foqlt97!!
+    hikari:
+      maximum-pool-size: 20
 
   config:
     import:
